@@ -11,11 +11,11 @@
 // @run-at   document-end
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     const gameNameRaw = document.getElementsByTagName("h1")[0].innerText
-    console.log( gameNameRaw)
+    console.log(gameNameRaw)
 
     let gameName
     // remove brackets
@@ -50,10 +50,5 @@
     console.log(gameName)
 
     document.getElementsByTagName("h1")[0].innerHTML = "<a href=\"https://store.steampowered.com/search/?term=" + gameName + "\">" + gameNameRaw + "<\a>"
-
-
-
-
-
 
 })();
