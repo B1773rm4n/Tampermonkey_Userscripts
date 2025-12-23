@@ -4,6 +4,7 @@
 // @version      2025-12-24
 // @description  When the steam search page is opened, automatically open the first result.
 // @copyright    WTFPL
+// @license      WTFPL
 // @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/steam_OpenFirstSearchResult.js
 // @author       B1773rm4n
 // @match        https://store.steampowered.com/search/*
