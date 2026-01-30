@@ -19,10 +19,21 @@
     // Key for storing visited project URLs in browser storage
     const STORAGE_KEY = 'freelancermap_visited_projects';
     const HIDDEN_KEY = 'freelancermap_hidden_projects';
+    const KEYWORDS_KEY = 'freelancermap_filter_keywords';
 
     // Retrieve the list of visited URLs from localStorage
     const getVisited = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
     const getHidden = () => JSON.parse(localStorage.getItem(HIDDEN_KEY) || '[]');
+    const getKeywords = () => {
+        let kws = JSON.parse(localStorage.getItem(KEYWORDS_KEY));
+        if (!kws) {
+            kws = ['SAP', 'HANA', 'Tiefbauingenieur'];
+            localStorage.setItem(KEYWORDS_KEY, JSON.stringify(kws));
+        }
+        return kws;
+    };
+
+    const saveKeywords = (kws) => localStorage.setItem(KEYWORDS_KEY, JSON.stringify(kws));
 
     const markHidden = (url) => {
         const hidden = getHidden();
@@ -41,12 +52,17 @@
         }
     };
 
+    const shouldHideByKeywords = (card, keywords) => {
+        const text = card.innerText.toLowerCase();
+        return keywords.some(kw => text.includes(kw.toLowerCase()));
+    };
+
     /**
-     * Scans the page for project cards and highlights them if visited.
-     * It checks both the local storage and the site's native 'viewed-project' class.
+     * Scans the page for project cards to highlight or hide them.
      */
     const highlightVisitedCards = () => {
         const visitedList = getVisited();
+        const keywords = getKeywords();
         const hiddenList = getHidden();
         const cards = document.querySelectorAll('.project-card');
 
@@ -56,8 +72,8 @@
 
             const projectUrl = titleLink.href;
 
-            // Hide if already marked as hidden
-            if (hiddenList.includes(projectUrl)) {
+            // Hide if manually hidden or matches keywords
+            if (hiddenList.includes(projectUrl) || shouldHideByKeywords(card, keywords)) {
                 card.style.display = 'none';
                 return;
             }
@@ -96,9 +112,101 @@
         });
     };
 
+    /**
+     * UI for managing keywords
+     */
+    const showKeywordModal = () => {
+        const existing = document.getElementById('fm-keyword-modal');
+        if (existing) existing.remove();
+
+        const modal = document.createElement('div');
+        modal.id = 'fm-keyword-modal';
+        modal.style = `
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 20px; border-radius: 8px; z-index: 10001;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); min-width: 300px; font-family: sans-serif;
+        `;
+
+        const overlay = document.createElement('div');
+        overlay.style = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 255, 21, 0.5); z-index: 10000;';
+        overlay.onclick = () => { modal.remove(); overlay.remove(); };
+
+        const renderList = () => {
+            const kws = getKeywords();
+            listContainer.innerHTML = kws.map(kw => `
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; padding: 5px; background: #f4f4f4; border-radius: 4px;">
+                    <span>${kw}</span>
+                    <button class="remove-kw" data-kw="${kw}" style="color: red; border: none; background: none; cursor: pointer; font-weight: bold;">X</button>
+                </div>
+            `).join('');
+            
+            listContainer.querySelectorAll('.remove-kw').forEach(btn => {
+                btn.onclick = () => {
+                    const toRemove = btn.getAttribute('data-kw');
+                    saveKeywords(getKeywords().filter(k => k !== toRemove));
+                    renderList();
+                    highlightVisitedCards();
+                };
+            });
+        };
+
+        modal.innerHTML = `
+            <h3 style="margin-top: 0;">Filter Keywords</h3>
+            <div id="kw-list" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;"></div>
+            <div style="display: flex; gap: 5px;">
+                <input type="text" id="new-kw" placeholder="Add keyword..." style="flex-grow: 1; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+                <button id="add-kw" style="padding: 5px 10px; background: #5200FF; color: white; border: none; border-radius: 4px; cursor: pointer;">Add</button>
+            </div>
+            <button id="close-modal" style="margin-top: 15px; width: 100%; padding: 8px; border: 1px solid #ccc; background: #eee; cursor: pointer; border-radius: 4px;">Close</button>
+        `;
+
+        document.body.appendChild(overlay);
+        document.body.appendChild(modal);
+
+        const listContainer = modal.querySelector('#kw-list');
+        const input = modal.querySelector('#new-kw');
+        
+        modal.querySelector('#add-kw').onclick = () => {
+            const val = input.value.trim();
+            if (val) {
+                const kws = getKeywords();
+                if (!kws.includes(val)) {
+                    kws.push(val);
+                    saveKeywords(kws);
+                    input.value = '';
+                    renderList();
+                    highlightVisitedCards();
+                }
+            }
+        };
+
+        modal.querySelector('#close-modal').onclick = () => { modal.remove(); overlay.remove(); };
+        renderList();
+    };
+
+    const injectKeywordButton = () => {
+        if (document.getElementById('fm-manage-filters')) return;
+        const nav = document.querySelector('.header-nav-bar');
+        if (!nav) return;
+
+        const li = document.createElement('li');
+        li.className = 'nav-item';
+        li.innerHTML = `
+            <a id="fm-manage-filters" class="general-header-link-highlighted" style="cursor:pointer; display: flex; align-items: center; gap: 5px; background-color: #00FF15; padding: 5px 10px; border-radius: 4px; color: black !important;">
+                <i class="fas fa-filter"></i> Filters
+            </a>
+        `;
+        li.onclick = (e) => {
+            e.preventDefault();
+            showKeywordModal();
+        };
+        nav.appendChild(li);
+    };
+
     // Use a MutationObserver to handle dynamic content (AJAX loading, pagination, etc.)
     const observer = new MutationObserver(() => {
         highlightVisitedCards();
+        injectKeywordButton();
     });
 
     observer.observe(document.body, {
@@ -108,4 +216,5 @@
 
     // Run on initial page load
     highlightVisitedCards();
+    injectKeywordButton();
 })();
