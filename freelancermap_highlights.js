@@ -5,8 +5,7 @@
 // @description  Highlight visited and hide unwanted projects on freelancermap.com
 // @copyright    WTFPL
 // @license      WTFPL
-// @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/raw/refs/heads/main/visited_highlighter.user.js
-// @author       B1773rm4n
+// @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/freelancermap_highlights.js
 // @match        https://www.freelancermap.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=https://www.freelancermap.com
 // @grant        GM_setValue
