@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         Open first steam search results
-// @namespace    http://tampermonkey.net/
-// @version      2024-07-13
-// @description  try to take over the world!
-// @author       You
+// @namespace    B1773rm4n
+// @version      2025-12-24
+// @description  When the steam search page is opened, automatically open the first result.
+// @copyright    WTFPL
+// @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/steam_OpenFirstSearchResult.js
+// @author       B1773rm4n
 // @match        https://store.steampowered.com/search/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=steampowered.com
 // @run-at   document-end

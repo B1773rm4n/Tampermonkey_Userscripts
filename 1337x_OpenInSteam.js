@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         1337x open in Steam
-// @namespace    http://tampermonkey.net/
-// @version      2024-07-14
-// @description  try to take over the world!
-// @author       You
+// @namespace    B1773rm4n
+// @version      2025-12-24
+// @description  Opens the game page in Steam based on the torrent title
+// @copyright    WTFPL
+// @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/1337x_OpenInSteam.js
+// @author       B1773rm4n
 // @match        https://1337x.to/torrent/*
 // @match        https://x1337x.cc/torrent/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=1337x.to
