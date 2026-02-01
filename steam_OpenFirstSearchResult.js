@@ -9,12 +9,11 @@
 // @run-at   document-end
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     const newUrl = document.getElementsByClassName('search_result_row')[0].href
     console.log(newUrl)
-    location.replace (newUrl);
+    location.replace(newUrl);
 
-    // Your code here...
 })();
