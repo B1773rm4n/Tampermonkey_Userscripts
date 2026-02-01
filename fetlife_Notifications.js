@@ -4,6 +4,7 @@
 // @version      2025-12-24
 // @description  Fetlife notifications are annoying, this tries to hide it
 // @copyright    WTFPL
+// @license      WTFPL
 // @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/fetlife_Notifications.js
 // @author       B1773rm4n
 // @match        https://fetlife.com/*

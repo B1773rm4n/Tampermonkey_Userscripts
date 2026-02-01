@@ -4,6 +4,7 @@
 // @version      2025-12-24
 // @description  Opens the game page in Steam based on the torrent title
 // @copyright    WTFPL
+// @license      WTFPL
 // @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/1337x_OpenInSteam.js
 // @author       B1773rm4n
 // @match        https://1337x.to/torrent/*

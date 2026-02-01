@@ -4,6 +4,7 @@
 // @version      2025-12-24
 // @description  When opening a full picture link, directly open the image
 // @copyright    WTFPL
+// @license      WTFPL
 // @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/ehentai_OpenFullPicture.js
 // @author       B1773rm4n
 // @match        https://exhentai.org/*

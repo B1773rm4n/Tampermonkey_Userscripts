@@ -4,6 +4,7 @@
 // @version      2025-12-24
 // @description  Detects AI generated content on e-hentai and highlights it
 // @copyright    WTFPL
+// @license      WTFPL
 // @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/ehentai_AiDetector.js
 // @author       B1773rm4n
 // @match        https://exhentai.org/*
