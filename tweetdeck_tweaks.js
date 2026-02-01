@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Tweetdeck tweaks
-// @namespace    http://tampermonkey.net/
+// @namespace    B1773rm4n
 // @description  Customizes my own Tweetdeck experience. It's unlikely someone else will enjoy this.
 // @copyright    WTFPL
-// @source       https://github.com/B1773rm4n/Tweetdeck_Greasemonkey
+// @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/tweetdeck_tweaks.js
 // @version      1.9.0
 // @author       B1773rm4n
 // @match        https://*.twitter.com/*

@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         Fetlife notifications
-// @namespace    http://tampermonkey.net/
-// @version      2025-07-11
-// @description  try to take over the world!
-// @author       You
+// @namespace    B1773rm4n
+// @version      2025-12-24
+// @description  Fetlife notifications are annoying, this tries to hide it
+// @copyright    WTFPL
+// @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/fetlife_Notifications.js
+// @author       B1773rm4n
 // @match        https://fetlife.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=fetlife.com
 // @grant        none

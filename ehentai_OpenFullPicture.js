@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         Exhentai OpenFullPicture
-// @namespace    http://tampermonkey.net/
-// @version      2024-08-19
-// @description  try to take over the world!
-// @author       You
+// @namespace    B1773rm4n
+// @version      2025-12-24
+// @description  When opening a full picture link, directly open the image
+// @copyright    WTFPL
+// @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/ehentai_OpenFullPicture.js
+// @author       B1773rm4n
 // @match        https://exhentai.org/*
 // @match        https://e-hentai.org/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=exhentai.org
