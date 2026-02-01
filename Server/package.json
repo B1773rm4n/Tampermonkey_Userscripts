@@ -1,0 +1,10 @@
+{
+  "name": "tampermonkey-local-server",
+  "version": "1.0.0",
+  "description": "Local Deno server to interface with Gemini API for Tampermonkey scripts",
+  "main": "localServer.js",
+  "scripts": {
+    "start": "deno run --allow-net --allow-env --allow-run --env localServer.js"
+  },
+  "license": "WTFPL"
+}
