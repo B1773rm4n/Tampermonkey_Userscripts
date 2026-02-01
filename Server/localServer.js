@@ -1,4 +1,5 @@
 import { callGeminiApi } from "./geminiApiClient.js";
+import { handler as emailVerifyHandler } from "./emailVerifyAPICycler.js";
 
 const port = 26389;
 
@@ -39,6 +40,9 @@ Deno.serve({ port }, async (req) => {
             console.error('Error processing request:', e);
             return new Response(JSON.stringify({ error: 'Invalid JSON body', details: e.message }), { status: 400, headers: { 'Content-Type': 'application/json' } });
         }
+    } else if (url.pathname === '/verifyEmail') {
+        console.log('Received /verifyEmail request');
+        return emailVerifyHandler(req);
     }
     console.log('Returning 404 for:', url.pathname);
     return new Response('Not Found', { status: 404 });

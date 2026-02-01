@@ -53,7 +53,7 @@ const providerCallers = {
   "ZeroBounce": callZeroBounceApi
 };
 
-async function handler(req) {
+export async function handler(req) {
   const url = new URL(req.url);
   const email = url.searchParams.get("email");
 
@@ -92,6 +92,3 @@ async function handler(req) {
     return new Response(`Error calling ${account.provider}: ${error.message}`, { status: 500 });
   }
 }
-
-console.log("Service running on http://localhost:26388");
-Deno.serve(handler);
