@@ -9,7 +9,7 @@
 // @grant        none
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     // Select the target node
@@ -29,20 +29,16 @@
     function titleIsChangedEvent(mutations) {
         mutations.forEach(mutation => {
             if (mutation.type === 'childList' || mutation.type === 'characterData') {
-
                 doChangetitle()
-
             }
         });
     }
 
-    setInterval(function() {
+    setInterval(function () {
         doChangetitle()
-
     }, 10 * 60 * 1000);
 
-    function doChangetitle(){
-
+    function doChangetitle() {
 
         const newMessages = document.querySelector('.flex-none.translate-x-2.rounded.bg-red-700.px-1.text-xxs.font-bold.leading-normal.light\\:text-black[aria-hidden="true"]').innerHTML
         // Get the text content
@@ -51,19 +47,17 @@
         // Check if it's a number
         const isNumber = !isNaN(value) && value !== '';
 
-
         if (target.textContent !== "FetLife") {
             if (!programmaticChange) {
                 console.log(Date()); // Log the current date and time
                 // Update the title
                 programmaticChange = true; // Set the flag
 
-                if(isNumber && newMessages != 0) {
+                if (isNumber && newMessages != 0) {
                     target.textContent = "(" + newMessages + ")" + " Fetlife"; // Change the title text
                 } else {
                     target.textContent = "FetLife"; // Change the title text
                 }
-
 
             } else {
                 console.log("Change was made programmatically.");
@@ -72,6 +66,5 @@
         }
 
     }
-
 
 })();

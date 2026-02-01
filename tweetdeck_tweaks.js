@@ -93,7 +93,6 @@ async function runWhenReady(readySelector) {
 //// Observers /////
 
 function observeTimelineForNewPosts() {
-
     [leftColumnNode, rightColumnNode] = document.getElementsByClassName("js-column");
     const config = { attributes: false, childList: true, subtree: true };
 
@@ -107,18 +106,14 @@ function observeTimelineForNewPosts() {
                     console.log(getUserNameFromNode(newNode))
                     doTweetdeckActions(newNode)
                 }
-
             });
-
         });
-
     }
 
     const observer = new MutationObserver(callback);
 
     observer.observe(leftColumnNode, config);
     observer.observe(rightColumnNode, config);
-
 }
 
 function fullScreenModal() {
@@ -147,7 +142,6 @@ function fullScreenModal() {
     const observer = new MutationObserver(callback);
 
     observer.observe(targetNode, config);
-
 }
 
 function watchDomChangesObserver() {
@@ -168,7 +162,6 @@ function watchDomChangesObserver() {
     });
 
     observer.observe(domTreeElementToObserve, config);
-
 }
 
 ////// doTweetdeckActions //////
@@ -217,7 +210,6 @@ function styleNameOfPost(newNode) {
             }
         }
     }
-
 }
 
 
@@ -234,7 +226,6 @@ function removeShowThisthreadTweetdeck(newNode) {
             element.remove()
         }
     }
-
 }
 
 function removeRetweetedTweetdeck(newNode) {
@@ -262,7 +253,6 @@ function removeRetweetedTweetdeck(newNode) {
             let element = retweetList[index];
             element.childNodes[3].childNodes[2].remove()
         }
-
         // TODO reimplement self retweet mention removal
     }
 }
@@ -271,7 +261,6 @@ function removeRetweetedTweetdeck(newNode) {
 ////// External API Call Functions //////
 
 function returnNamesFromServer() {
-
     return new Promise((resolve, reject) => GM_xmlhttpRequest({
         method: "GET",
         url: "https://api.seele-00.asuka-shikinami.club/artists",
@@ -319,15 +308,11 @@ function sendPostToServer(newNode) {
                         addPostToAlreadyProcessedList(newNode)
                     }
                 });
-
             });
-
         } else {
             // - if already known / scanned -> discard
         }
-
     }
-
 }
 
 
@@ -351,7 +336,6 @@ function addPostToAlreadyProcessedList(newNode) {
 async function showInListTwitter() {
 
     // This colors the text of the artist in the timeline into red when he isn't in the known artist list
-
     if (document.URL.indexOf('https://twitter.com/') > -1) {
         let nameElement
         if (window.location.href.indexOf('status') > 0) {
@@ -388,7 +372,6 @@ function getImageUrlsFromNode(node) {
     } else {
         alert("No getImageUrlsFromNode")
     }
-
 }
 
 function removePanels() {
