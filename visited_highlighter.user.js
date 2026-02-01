@@ -9,7 +9,8 @@
 // @author       B1773rm4n
 // @match        https://www.freelancermap.com/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=https://www.freelancermap.com
-// @grant        none
+// @grant        GM_setValue
+// @grant        GM_getValue
 // @run-at   document-end
 // ==/UserScript==
 
@@ -21,25 +22,26 @@
     const HIDDEN_KEY = 'freelancermap_hidden_projects';
     const KEYWORDS_KEY = 'freelancermap_filter_keywords';
 
-    // Retrieve the list of visited URLs from localStorage
-    const getVisited = () => JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    const getHidden = () => JSON.parse(localStorage.getItem(HIDDEN_KEY) || '[]');
+    // Retrieve the list of visited URLs from Tampermonkey storage
+    const getVisited = () => JSON.parse(GM_getValue(STORAGE_KEY, '[]'));
+    const getHidden = () => JSON.parse(GM_getValue(HIDDEN_KEY, '[]'));
     const getKeywords = () => {
-        let kws = JSON.parse(localStorage.getItem(KEYWORDS_KEY));
-        if (!kws) {
-            kws = ['SAP', 'HANA', 'Tiefbauingenieur'];
-            localStorage.setItem(KEYWORDS_KEY, JSON.stringify(kws));
+        let kwsString = GM_getValue(KEYWORDS_KEY);
+        if (!kwsString) {
+            const kws = ['SAP', 'HANA', 'Tiefbauingenieur'];
+            GM_setValue(KEYWORDS_KEY, JSON.stringify(kws));
+            return kws;
         }
-        return kws;
+        return JSON.parse(kwsString);
     };
 
-    const saveKeywords = (kws) => localStorage.setItem(KEYWORDS_KEY, JSON.stringify(kws));
+    const saveKeywords = (kws) => GM_setValue(KEYWORDS_KEY, JSON.stringify(kws));
 
     const markHidden = (url) => {
         const hidden = getHidden();
         if (!hidden.includes(url)) {
             hidden.push(url);
-            localStorage.setItem(HIDDEN_KEY, JSON.stringify(hidden));
+            GM_setValue(HIDDEN_KEY, JSON.stringify(hidden));
         }
     };
 
@@ -48,7 +50,7 @@
         const visited = getVisited();
         if (!visited.includes(url)) {
             visited.push(url);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(visited));
+            GM_setValue(STORAGE_KEY, JSON.stringify(visited));
         }
     };
 
@@ -136,7 +138,7 @@
             listContainer.innerHTML = kws.map(kw => `
                 <div style="display: flex; justify-content: space-between; margin-bottom: 5px; padding: 5px; background: #f4f4f4; border-radius: 4px;">
                     <span>${kw}</span>
-                    <button class="remove-kw" data-kw="${kw}" style="color: red; border: none; background: none; cursor: pointer; font-weight: bold;">X</button>
+                    <button class="remove-kw" data-kw="${kw}" style="color: red; border: none; background: none; cursor: pointer; font-weight: bold; padding: 0px; padding-right: 20px">X</button>
                 </div>
             `).join('');
             
@@ -152,7 +154,7 @@
 
         modal.innerHTML = `
             <h3 style="margin-top: 0;">Filter Keywords</h3>
-            <div id="kw-list" style="max-height: 200px; overflow-y: auto; margin-bottom: 15px;"></div>
+            <div id="kw-list" style="max-height: 500px; overflow-y: auto; margin-bottom: 15px;"></div>
             <div style="display: flex; gap: 5px;">
                 <input type="text" id="new-kw" placeholder="Add keyword..." style="flex-grow: 1; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
                 <button id="add-kw" style="padding: 5px 10px; background: #5200FF; color: white; border: none; border-radius: 4px; cursor: pointer;">Add</button>
