@@ -1,15 +1,15 @@
 // ==UserScript==
-// @name         Exhentai AiDetector
+// @name         E-Hentai AiDetector
 // @namespace    B1773rm4n
-// @version      2025-12-24
-// @description  Detects AI generated content on e-hentai and highlights it
+// @version      2026-03-25
+// @description  Detects AI generated content on E-hentai and highlights it
 // @copyright    WTFPL
 // @license      WTFPL
 // @source       https://github.com/B1773rm4n/Tampermonkey_Userscripts/blob/main/ehentai_AiDetector.js
 // @author       B1773rm4n
 // @match        https://exhentai.org/*
 // @match        https://e-hentai.org/*
-// @icon         https://www.google.com/s2/favicons?sz=64&domain=exhentai.org
+// @icon         https://www.google.com/s2/favicons?sz=64&domain=e-hentai.org
 // @grant        none
 // ==/UserScript==
 
